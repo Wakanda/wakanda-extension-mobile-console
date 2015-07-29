@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body{
+            background-color: #2B303B;
+            color: #BFCAD9;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .message{
+            display: block;
+            box-sizing: border-box;
+        }
+        span.time{
+            color: #555F74;
+            padding-right: 10px;
+        }
+        span.green{
+            color: #A4B07A;
+        }
+        span.orange{
+            color: #D0876C;
+        }
+        span.red{
+            color: #C46065;
+        }
+        span.yellow{
+            color: rgb(242, 209, 141);
+        }
+        span.error{
+            font-weight: bold;
+        }
+        #clear{
+            font-weight: bold;
+            color: white;
+            position: absolute;
+            top: 5px;
+            right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="console"></div>
+    <a id="clear" href="#" onClick="clearMobileConsole()">clear console</a>
+    <script src="js/console.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        getMobileConsole();
+        studio.mobile.getMobileConsoleFromStorage();
+        studio.mobile.consoleIndex = studio.mobile.console.length;
+
+        function generateLogString(log){
+            var date = new Date(log.date).toLocaleTimeString();
+            var logHTML = '';
+            switch(log.type){
+                case 'DEBUG':
+                    logHTML = '<div class="message"><span class="debug yellow">['+log.type+']</span> <span class="time">'+date.substring(0,8)+'</span>'+log.message+'</div>';
+                    break;
+                case 'WARNING':
+                    logHTML = '<div class="message"><span class="warning orange">['+log.type+']</span> <span class="time">'+date.substring(0,8)+'</span><span class="orange">'+log.message+'</span></div>';
+                    break;
+                case 'ERROR':
+                    logHTML = '<div class="message"><span class="error red">['+log.type+']</span> <span class="time">'+date.substring(0,8)+'</span><span class="red">'+log.message+'</span></div>';
+                    break;
+                case 'LOG':
+                    logHTML = '<div class="message"><span class="log">['+log.type+']</span> <span class="time">'+date.substring(0,8)+'</span>'+log.message+'</div>';
+                    break;
+                default:
+                    logHTML = '<div class="message"><span class="time">'+date.substring(0,8)+'</span>'+log.message+'</div>';
+                    break;
+            }
+            return logHTML;
+        }
+        
+        function checkMobileConsole(){
+            studio.mobile.getMobileConsoleFromStorage();
+            if(studio.mobile.console.length > 0){
+                for(var i = studio.mobile.consoleIndex; i < studio.mobile.console.length; i++){
+                    document.getElementById('console').innerHTML += generateLogString(studio.mobile.console[studio.mobile.consoleIndex]);
+                    studio.mobile.consoleIndex++;
+                }
+            }
+        }
+
+        function restoreMobileConsole(){
+            studio.mobile.getMobileConsoleFromStorage();
+            if(studio.mobile.console.length > 0){
+                document.getElementById('console').innerHTML = '';
+                studio.mobile.consoleIndex = 0;
+                studio.mobile.console.forEach(function(log){
+                    document.getElementById('console').innerHTML += generateLogString(studio.mobile.console[studio.mobile.consoleIndex]);
+                    studio.mobile.consoleIndex++;
+                });
+            }
+        }
+
+        function clearMobileConsole(){
+            studio.sendCommand('MobileConsole.clear');
+            studio.mobile.consoleIndex = 0;
+            document.getElementById('console').innerHTML = '';
+        }
+
+        // ON START CHECK IF CONSOLE HAS MESSAGES
+        if(document.getElementById('console').innerHTML == ''){
+            restoreMobileConsole();
+        }
+        // CHECK PERIODICALLY IF CONSOLE HAS MESSAGES
+        setInterval(function(){ checkMobileConsole(); }, 250);
+
+        // TEMP STARTER TO CHECK IF EVERYTHING WORKS
+        setTimeout(function(){
+            studio.sendCommand('MobileAPI.invokeCommand.'+btoa('{"cmd":"echo Command Line Tools are ready","path":null}'));
+        },500);
+
+        //commandName + SEPARATOR + JSON.stringify(ARGUMENTS)
+    </script>
+
+</body>
+</html>

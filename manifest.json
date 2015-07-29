@@ -1,0 +1,35 @@
+{
+	"extension": {
+		"name": "Mobile",
+		"version": "1.0.0",
+		"description": "Wakanda Studio Mobile Console",
+		"icon": "ionitron-avatar.png",
+		"senders": [{
+			"location": "studioToolbar",
+			"tips": "Description",
+			"icon": "ionitron-avatar.png",
+			"title": "Console",
+			"menu": [{
+				"actionName": "open",
+				"title": "Open Console"
+			}]
+		}],
+		"actions": [{
+			"name": "open",
+			"title": "Open Console"
+		}, {
+			"name": "init",
+			"title": "Init Console",
+			"trigger": [{
+				"event": "onStudioStart"
+			}]
+		}, {
+			"name": "append",
+			"title": "Append Message"
+		}, {
+			"name": "clear",
+			"title": "Clear Console"
+		}],
+		"lifetime": "application_lifetime"
+	}
+}
