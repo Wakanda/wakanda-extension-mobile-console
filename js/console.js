@@ -3,6 +3,7 @@ function getMobileConsole() {
   var config = studio.mobile = {
     saveOnClose: true, // save on the clipboard the console contents
     console: [],
+    consoleLog: [],
     getMobileConsoleFromStorage: function recoverMobileConsoleFromStorage() {
       var console = [];
       if (studio.extension.storage.getItem('mobileConsole')) {
@@ -27,12 +28,13 @@ function getMobileConsole() {
         } catch (e) {}
       }
     },
-    appendConsoleMessage: function appendConsoleMessage(message, type) {
+    appendConsoleMessage: function appendConsoleMessage(message, type, category) {
       if (message && message.length > 0) {
         // append the message in pending
         this.console.push({
           message: message,
           type: type || null,
+          category: category || 'env',
           date: new Date().getTime()
         });
       }
@@ -41,13 +43,15 @@ function getMobileConsole() {
     clearConsoleMessages: function clearConsoleMessages() {
       this.console = [];
       studio.extension.storage.removeItem('mobileConsole');
-      if(this.saveOnClose) {
+      if (this.saveOnClose) {
         studio.writeClipboard('mobileConsole', JSON.stringify(this.console));
       }
     }
   }
   return config;
 }
-if(typeof exports != 'undefined'){
+// CHECKS FOR ENVIRONMENT
+if (typeof exports != 'undefined') {
+  // BACKEND ENVIRONMENT
   exports.getConsole = getMobileConsole;
 }
