@@ -1,0 +1,54 @@
+#console .ansi_fg_black{
+  color: #626262;
+}
+#console .ansi_fg_red{
+  color: #C46065;
+}
+#console .ansi_fg_green{
+  color: #A4B07A;
+}
+#console .ansi_fg_yellow{
+  color: #D0876C;
+}
+#console .ansi_fg_blue{
+  color: blue;
+}
+#console .ansi_fg_purple{
+  color: purple;
+}
+#console .ansi_fg_cyan{
+  color: teal;
+}
+#console .ansi_fg_white{
+  color: #626262;
+}
+#console .ansi_bg_black{
+  /* backgroud-color: #626262; */
+}
+#console .ansi_bg_red{
+  /* backgroud-color: #C46065; */
+}
+#console .ansi_bg_green{
+  /* backgroud-color: #A4B07A; */
+}
+#console .ansi_bg_yellow{
+  /* backgroud-color: #D0876C; */
+}
+#console .ansi_bg_blue{
+  /* backgroud-color: blue; */
+}
+#console .ansi_bg_purple{
+  /* backgroud-color: purple; */
+}
+#console .ansi_bg_cyan{
+  /* backgroud-color: teal; */
+}
+#console .ansi_bg_white{
+  /* backgroud-color: white; */
+}
+#console .ansi_bold {
+  font-weight: bold;
+}
+#console .ansi_italic {
+  font-style: italic;
+}

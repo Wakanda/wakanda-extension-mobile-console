@@ -1,4 +1,6 @@
 var mobileConsole = require("./js/console.js");
+include('./js/ansispan.js');
+
 exports.handleMessage = function handleMessage(message) {
 	var mobileConsoleObject = mobileConsole.getConsole();
 	mobileConsoleObject.getMobileConsoleFromStorage();
@@ -8,7 +10,7 @@ exports.handleMessage = function handleMessage(message) {
 	} else if (message.action == 'append') {
 		if (message.params) {
 			var messageReceived = message.params;
-			mobileConsoleObject.appendConsoleMessage(messageReceived.msg, messageReceived.type, messageReceived.category);
+			mobileConsoleObject.appendConsoleMessage(ansi2html(messageReceived.msg), messageReceived.type, messageReceived.category);
 		}
 	} else if (message.action == 'clear') {
 		mobileConsoleObject.clearConsoleMessages();
