@@ -5,7 +5,8 @@ studio.mobile.consoleIndex = studio.mobile.console.length;
 
 function generateLogString(log) {
   var date = new Date(log.date).toLocaleTimeString();
-  var logHTML = '', logCategory = '';
+  var logHTML = '',
+    logCategory = '';
   switch (log.category) {
     case 'env':
       logCategory = 'Environment';
@@ -43,7 +44,7 @@ function generateLogString(log) {
 function checkLogConsole() {
   var consoleLog = studio.getConsoleLog();
   for (var i = 0; i < consoleLog.length; i++) {
-    studio.mobile.appendConsoleMessage(consoleLog[i],'LOG','backend');
+    studio.mobile.appendConsoleMessage(consoleLog[i], 'LOG', 'backend');
   }
 }
 
@@ -53,7 +54,7 @@ function checkMobileConsole() {
     for (var i = studio.mobile.consoleIndex; i < studio.mobile.console.length; i++) {
       var string = generateLogString(studio.mobile.console[i]);
       document.getElementById('console-body-all').innerHTML += string;
-      document.getElementById('console-body-'+String(studio.mobile.console[i].category)).innerHTML += string;
+      document.getElementById('console-body-' + String(studio.mobile.console[i].category)).innerHTML += string;
       studio.mobile.consoleIndex++;
     }
   }
@@ -72,7 +73,7 @@ function restoreMobileConsole() {
     studio.mobile.console.forEach(function(log) {
       var string = generateLogString(studio.mobile.console[studio.mobile.consoleIndex]);
       document.getElementById('console-body-all').innerHTML += string;
-      document.getElementById('console-body-'+String(studio.mobile.console[studio.mobile.consoleIndex].category)).innerHTML += string;
+      document.getElementById('console-body-' + String(studio.mobile.console[studio.mobile.consoleIndex].category)).innerHTML += string;
       studio.mobile.consoleIndex++;
     });
   }
@@ -106,34 +107,39 @@ function clearMobileConsole() {
   }
 }
 
-function toggleOptions() {
-  if(document.getElementById('options').style.display && document.getElementById('options').style.display == 'block') {
-    document.getElementById('options').style.display = 'none';
-  }else{
-    document.getElementById('options').style.display = 'block';
+function toggleOptions(mode) {
+  if (mode == true) {
+    document.getElementById('options-container').style.display = 'block';
+  } else if (mode == false) {
+    document.getElementById('options-container').style.display = 'none';
+  } else {
+    if (document.getElementById('options-container').style.display && document.getElementById('options').style.display == 'block') {
+      document.getElementById('options-container').style.display = 'none';
+    } else {
+      document.getElementById('options-container').style.display = 'block';
+    }
   }
 }
 
 function toggleTime() {
-  if(document.getElementById('toggleTime').className == 'switch') {
+  if (document.getElementById('toggleTime').className == 'switch') {
     document.getElementById('toggleTime').className = 'switch active';
     document.getElementById('console').classList.add("time");
-  }else{
+  } else {
     document.getElementById('toggleTime').className = 'switch';
     document.getElementById('console').classList.remove("time");
   }
 }
 
 function toggleType() {
-  if(document.getElementById('toggleType').className == 'switch') {
+  if (document.getElementById('toggleType').className == 'switch') {
     document.getElementById('toggleType').className = 'switch active';
     document.getElementById('console').classList.add("debug");
-  }else{
+  } else {
     document.getElementById('toggleType').className = 'switch';
     document.getElementById('console').classList.remove("debug");
   }
 }
-
 // ON START CHECK IF CONSOLE HAS MESSAGES
 if (document.getElementById('console-body-all').innerHTML == '') {
   restoreMobileConsole();

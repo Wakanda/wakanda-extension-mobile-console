@@ -13,11 +13,14 @@
             <a href="#" id="console-tab-backend" class="messages-tab" onClick="changeTab('backend')">Backend logs</a>
             <a href="#" id="console-tab-env" class="messages-tab" onClick="changeTab('env')">Environment outputs</a>
             <a href="#" id="console-tab-build" class="messages-tab" onClick="changeTab('build')">Build outputs</a>
-            <a href="#" id="options-trigger" onClick="toggleOptions()">⌘</a>
-            <div id="options" style="display: none;">
-                <a href="#" onClick="clearMobileConsole()"><span>clear console</span></a>
-                <a href="#" id="toggleTime" class="switch" onClick="toggleTime()"><span>toggle time</span></a>
-                <a href="#" id="toggleType" class="switch" onClick="toggleType()"><span>toggle debug</span></a>
+            <div id="options" onmouseover="toggleOptions(true)" onmouseout="toggleOptions(false)">
+                <a href="#" id="options-trigger" onClick="toggleOptions()">▼</a>
+                <div id="options-container" style="display: none;">
+                    <a href="#" onClick="clearMobileConsole()"><span>Clear Console</span></a>
+                    <hr>
+                    <a href="#" id="toggleTime" class="switch" onClick="toggleTime()"><span class="icon">✓</span><span>Toggle Time</span></a>
+                    <a href="#" id="toggleType" class="switch" onClick="toggleType()"><span class="icon">✓</span><span>Toggle Debug</span></a>
+                </div>
             </div>
         </div>
         <div id="console-body">
