@@ -3,15 +3,15 @@ getMobileConsole();
 studio.mobile.getMobileConsoleFromStorage();
 studio.mobile.consoleIndex = studio.mobile.console.length;
 
-function removeUnsafeHTMLchars(inputString){
+function removeUnsafeHTMLchars(inputString) {
     // remove unsafe html characters
-    var str = inputString.replace(/<\w+( \w+="[\w\s]{0,}")?>|<\/\w+>/gi,function(string){
-        return string = string.replace(/</g,"{%").replace(/>/g,"%}");
+    var str = inputString.replace(/<\w+( \w+="[\w\s]{0,}")?>|<\/\w+>/gi, function(string) {
+        return string = string.replace(/</g, "{%").replace(/>/g, "%}");
     });
-    str = str.replace(/>/g,'&gt;');
-    str = str.replace(/</g,'&lt;');
-    str = str.replace(/{%|%}/g,function(string){
-        return string = string.replace(/{%/g,"<").replace(/%}/g,">");
+    str = str.replace(/>/g, '&gt;');
+    str = str.replace(/</g, '&lt;');
+    str = str.replace(/{%|%}/g, function(string) {
+        return string = string.replace(/{%/g, "<").replace(/%}/g, ">");
     });
     return str;
 }
@@ -21,7 +21,6 @@ function generateLogString(log) {
     var logHTML = '',
         logMessage = removeUnsafeHTMLchars(log.message),
         logCategory = '';
-
     switch (log.category) {
         case 'env':
             logCategory = 'Environment';
@@ -60,6 +59,7 @@ function checkLogConsole() {
     var consoleLog = studio.getConsoleLog();
     for (var i = 0; i < consoleLog.length; i++) {
         studio.mobile.appendConsoleMessage(consoleLog[i], 'LOG', 'backend');
+        setScroll();
     }
 }
 
@@ -71,6 +71,7 @@ function checkMobileConsole() {
             document.getElementById('console-body-all').innerHTML += string;
             document.getElementById('console-body-' + String(studio.mobile.console[i].category)).innerHTML += string;
             studio.mobile.consoleIndex++;
+            setScroll();
         }
     }
 }
@@ -109,6 +110,8 @@ function changeTab(tabName) {
         }
     }
     document.getElementById('console-body-' + tabName).style.display = 'block';
+    studio.mobile.activeConsoleBody = 'console-body-' + tabName;
+    setScroll();
 }
 
 function clearMobileConsole() {
@@ -155,11 +158,17 @@ function toggleType() {
         document.getElementById('console').classList.remove("debug");
     }
 }
+
+function setScroll() {
+    var elm = document.getElementById(studio.mobile.activeConsoleBody);
+    elm.scrollTop = elm.scrollHeight;
+}
 // ON START CHECK IF CONSOLE HAS MESSAGES
 if (document.getElementById('console-body-all').innerHTML == '') {
     restoreMobileConsole();
 }
 // CHECK PERIODICALLY IF CONSOLE HAS MESSAGES
+studio.mobile.activeConsoleBody = 'console-body-all';
 setInterval(function() {
     checkLogConsole();
     checkMobileConsole();

@@ -1,3 +1,7 @@
+html, body{
+    overflow: hidden;
+    height: 100%;
+}
 body {
     background-color: white;
     font-family: Arial, monospace;
@@ -10,6 +14,9 @@ body {
     color: #626262;
     background: #E3E5E6;
     overflow: hidden;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
 }
 
 #console-tabs {
@@ -30,18 +37,29 @@ body {
 }
 
 #console-body {
+    overflow: hidden;
     background-color: white;
     font-family: 'Open Sans', monospace;
     font-size: 12px;
     line-height: 16px;
-    padding: 15px 30px;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    top: 34px;
+    left: 0;
+    width: 100%;
+    min-width: 980px;
 }
 
 #console-body .messages-container {
+    padding: 15px 30px;
     height: 100%;
     overflow: auto;
     background-color: white;
     display: none;
+    box-sizing: border-box;
 }
 
 #console .messages-container .message .type, #console .messages-container .message .category, #console .messages-container .message .time {
