@@ -9,13 +9,17 @@ function getMobileConsole() {
       if (studio.extension.storage.getItem('mobileConsole')) {
         try {
           console = JSON.parse(studio.extension.storage.getItem('mobileConsole'));
-        } catch (e) {}
+        } catch (e) {
+          studio.alert('WARNING! the console log could not be read from the storage: '+String(e));
+        }
       }
       if (this.saveOnClose && console.length == 0) {
         if (studio.readClipboard('mobileConsole').length > 0) {
           try {
             console = JSON.parse(studio.readClipboard('mobileConsole'));
-          } catch (e) {}
+          } catch (e) {
+            studio.alert('WARNING! the console log could not be read from the clipboard: '+String(e));
+          }
         }
       }
       this.console = console;
@@ -25,7 +29,9 @@ function getMobileConsole() {
       if (this.saveOnClose && this.console.length > 0) {
         try {
           studio.writeClipboard('mobileConsole', JSON.stringify(this.console));
-        } catch (e) {}
+        } catch (e) {
+          studio.alert('WARNING! the console log could not be saved in the clipboard: '+String(e));
+        }
       }
     },
     appendConsoleMessage: function appendConsoleMessage(message, type, category) {
