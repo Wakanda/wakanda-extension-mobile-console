@@ -1,4 +1,7 @@
 function ansi2html(str) {
+    // remove unsafe html characters
+    str = str.replace(/<|>/gm,'');
+
     var foregroundColors = {
         '30': 'black',
         '31': 'red',
