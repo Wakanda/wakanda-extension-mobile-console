@@ -3,10 +3,25 @@ getMobileConsole();
 studio.mobile.getMobileConsoleFromStorage();
 studio.mobile.consoleIndex = studio.mobile.console.length;
 
+function removeUnsafeHTMLchars(inputString){
+    // remove unsafe html characters
+    var str = inputString.replace(/<\w+( \w+="[\w]+")?>|<\/\w+>/gi,function(string){
+        return string = string.replace(/</g,"{%").replace(/>/g,"%}");
+    });
+    str = str.replace(/>/g,'&gt;');
+    str = str.replace(/</g,'&lt;');
+    str = str.replace(/{%|%}/g,function(string){
+        return string = string.replace(/{%/g,"<").replace(/%}/g,">");
+    });
+    return str;
+}
+
 function generateLogString(log) {
     var date = new Date(log.date).toLocaleTimeString();
     var logHTML = '',
+        logMessage = removeUnsafeHTMLchars(log.message),
         logCategory = '';
+
     switch (log.category) {
         case 'env':
             logCategory = 'Environment';
@@ -23,19 +38,19 @@ function generateLogString(log) {
     };
     switch (log.type) {
         case 'DEBUG':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + log.message + '</div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
             break;
         case 'WARNING':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type orange">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="orange">' + log.message + '</span></div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type orange">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="orange">' + logMessage + '</span></div>';
             break;
         case 'ERROR':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type red">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="red">' + log.message + '</span></div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type red">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="red">' + logMessage + '</span></div>';
             break;
         case 'LOG':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + log.message + '</div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
             break;
         default:
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">' + date.substring(0, 8) + '</span>' + log.message + '</div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
             break;
     }
     return logHTML;
