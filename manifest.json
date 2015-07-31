@@ -9,10 +9,7 @@
 			"tips": "Description",
 			"icon": "ionitron-avatar.png",
 			"title": "Console",
-			"menu": [{
-				"actionName": "open",
-				"title": "Open Console"
-			}]
+			"actionName": "open"
 		}],
 		"actions": [{
 			"name": "open",
