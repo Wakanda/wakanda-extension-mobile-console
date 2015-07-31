@@ -1,6 +1,12 @@
 function ansi2html(str) {
     // remove unsafe html characters
-    str = str.replace(/<|>/gm,'');
+    str = str.replace(/<\w+( \w+="[\w]+")?>|<\/\w+>/gi,function(string){
+        return string = string.replace(/</g,"{%").replace(/>/g,"%}");
+    });
+    str = str.replace(/<|>/g,'');
+    str = str.replace(/{%|%}/g,function(string){
+        return string = string.replace(/{%/g,"<").replace(/%}/g,">");
+    });
 
     var foregroundColors = {
         '30': 'black',
