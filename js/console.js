@@ -2,6 +2,7 @@
 function getMobileConsole() {
     var config = studio.mobile = {
         saveOnClose: true, // save on the clipboard the console contents
+        toClear: false,
         console: [],
         consoleLog: [],
         invokeCommand: function(command,path) {

@@ -73,6 +73,10 @@ function checkMobileConsole() {
             studio.mobile.consoleIndex++;
             setScroll();
         }
+    } else if (studio.mobile.console.length == 0 && studio.mobile.consoleIndex > 0) {
+        studio.mobile.consoleIndex = 0;
+        clearFrontendConsole();
+        setScroll();
     }
 }
 
@@ -114,8 +118,7 @@ function changeTab(tabName) {
     setScroll();
 }
 
-function clearMobileConsole() {
-    studio.sendCommand('MobileConsole.clear');
+function clearFrontendConsole() {
     studio.mobile.consoleIndex = 0;
     var elements = document.getElementsByClassName('messages-container');
     for (var i in elements) {
@@ -123,6 +126,10 @@ function clearMobileConsole() {
             elements[i].innerHTML = '';
         }
     }
+}
+
+function clearMobileConsole() {
+    studio.sendCommand('MobileConsole.clear');
 }
 
 function toggleOptions(mode) {
