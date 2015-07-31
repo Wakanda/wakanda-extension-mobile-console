@@ -5,7 +5,7 @@ studio.mobile.consoleIndex = studio.mobile.console.length;
 
 function removeUnsafeHTMLchars(inputString){
     // remove unsafe html characters
-    var str = inputString.replace(/<\w+( \w+="[\w]+")?>|<\/\w+>/gi,function(string){
+    var str = inputString.replace(/<\w+( \w+="[\w\s]{0,}")?>|<\/\w+>/gi,function(string){
         return string = string.replace(/</g,"{%").replace(/>/g,"%}");
     });
     str = str.replace(/>/g,'&gt;');
