@@ -4,6 +4,13 @@ function getMobileConsole() {
         saveOnClose: true, // save on the clipboard the console contents
         console: [],
         consoleLog: [],
+        invokeCommand: function(command,path) {
+            var message = {
+                cmd: command,
+                path: path || null
+            };
+            studio.sendCommand('MobileAPI.invokeCommand.' + btoa(JSON.stringify(message)));
+        },
         getMobileConsoleFromStorage: function() {
             var console = [];
             if (studio.extension.storage.getItem('mobileConsole')) {
