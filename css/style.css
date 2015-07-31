@@ -135,6 +135,7 @@ span.error {
     padding: 10px;
     background: #fff;
     border: 1px solid #cdcdcd;
+    z-index: 999;
 }
 
 #options-container a {
