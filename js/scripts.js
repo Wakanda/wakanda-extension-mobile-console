@@ -10,7 +10,7 @@ function removeUnsafeHTMLchars(inputString) {
     });
     str = str.replace(/>/g, '&gt;');
     str = str.replace(/</g, '&lt;');
-    str = str.replace(/\n/g, '{%br%}&emsp;&emsp;&emsp;&emsp;');
+    str = str.replace(/\n/g, '{%br%}');
     str = str.replace(/{%|%}/g, function(string) {
         return string = string.replace(/{%/g, "<").replace(/%}/g, ">");
     });
@@ -37,8 +37,11 @@ function generateLogString(log) {
             break;
     };
     switch (log.type) {
-        case 'DEBUG':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
+        case 'OUTPUT':
+            logHTML = '<div class="message"><div><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span></div>' + logMessage + '</div>';
+            break;
+        case 'COMMAND':
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>$ ' + logMessage + '</div>';
             break;
         case 'WARNING':
             logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type orange">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="orange">' + logMessage + '</span></div>';
@@ -50,7 +53,7 @@ function generateLogString(log) {
             logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
             break;
         default:
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
             break;
     }
     return logHTML;
