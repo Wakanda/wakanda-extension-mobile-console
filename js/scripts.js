@@ -10,6 +10,7 @@ function removeUnsafeHTMLchars(inputString) {
     });
     str = str.replace(/>/g, '&gt;');
     str = str.replace(/</g, '&lt;');
+    str = str.replace(/\n/g, '{%br%}');
     str = str.replace(/{%|%}/g, function(string) {
         return string = string.replace(/{%/g, "<").replace(/%}/g, ">");
     });
