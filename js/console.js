@@ -5,10 +5,13 @@ function getMobileConsole() {
         toClear: false,
         console: [],
         consoleLog: [],
-        invokeCommand: function(command,path) {
+        invokeCommand: function(command,options) {
             var message = {
                 cmd: command,
-                path: path || null
+                path: options.path || null,
+                onmessage: options.onmessage,
+                onerror: options.onerror,
+                onterminated: options.onterminated
             };
             studio.sendCommand('MobileAPI.invokeCommand.' + btoa(JSON.stringify(message)));
         },
