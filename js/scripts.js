@@ -5,9 +5,7 @@ studio.mobile.consoleIndex = studio.mobile.console.length;
 
 function removeUnsafeHTMLchars(inputString) {
     // remove unsafe html characters
-    var str = inputString.replace(/<\w+( \w+="[\w\s]{0,}")?>|<\/\w+>/gi, function(string) {
-        return string = string.replace(/</g, "{%").replace(/>/g, "%}");
-    });
+    var str = inputString;
     str = str.replace(/>/g, '&gt;');
     str = str.replace(/</g, '&lt;');
     str = str.replace(/\n/g, '{%br%}');
@@ -22,6 +20,7 @@ function generateLogString(log) {
     var logHTML = '',
         logMessage = removeUnsafeHTMLchars(log.message),
         logCategory = '';
+
     switch (log.category) {
         case 'env':
             logCategory = 'Environment';

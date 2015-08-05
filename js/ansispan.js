@@ -25,7 +25,7 @@ function ansi2html(str) {
     str = str.replace(/(\033\[(\d+)(;\d+)?m)/gm, function(match, fullMatch, m1, m2) {
         var fgColor = m1;
         var bgColor = m2;
-        var newStr = '<span class="';
+        var newStr = '{%span class="';
         if (fgColor && foregroundColors[fgColor]) {
             newStr += 'ansi_fg_' + foregroundColors[fgColor];
         }
@@ -35,18 +35,18 @@ function ansi2html(str) {
                 newStr += ' ansi_bg_' + backgroundColors[bgColor];
             }
         }
-        newStr += '">';
+        newStr += '"%}';
         return newStr;
     });
     //
     // `\033[1m` enables bold font, `\033[22m` disables it
     //
-    str = str.replace(/\033\[1m/g, '<span class="ansi_bold">').replace(/\033\[22m/g, '</span>');
+    str = str.replace(/\033\[1m/g, '{%span class="ansi_bold"%}').replace(/\033\[22m/g, '{%/span%}');
     //
     // `\033[3m` enables italics font, `\033[23m` disables it
     //
-    str = str.replace(/\033\[3m/g, '<span class="ansi_italic">').replace(/\033\[23m/g, '</span>');
-    str = str.replace(/\033\[m/g, '</span>');
-    str = str.replace(/\033\[0m/g, '</span>');
-    return str.replace(/\033\[39m/g, '</span>');
+    str = str.replace(/\033\[3m/g, '{%span class="ansi_italic"%}').replace(/\033\[23m/g, '{%/span%}');
+    str = str.replace(/\033\[m/g, '{%/span%}');
+    str = str.replace(/\033\[0m/g, '{%/span%}');
+    return str.replace(/\033\[39m/g, '{%/span>');
 };
