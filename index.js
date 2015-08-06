@@ -7,13 +7,18 @@ exports.handleMessage = function handleMessage(message) {
 	if (message.action == 'open') {
 		// open the webview
 		studio.extension.openPageInTab('index.html', 'Mobile Console', false);
+
 	} else if (message.action == 'append') {
 		if (message.params) {
 			var messageReceived = message.params;
+            if(typeof messageReceived.msg === 'object') {
+                messageReceived.msg = JSON.stringify(messageReceived.msg);
+            }
 			mobileConsoleObject.appendConsoleMessage(ansi2html(messageReceived.msg), messageReceived.type, messageReceived.category);
 		}
 	} else if (message.action == 'clear') {
 		mobileConsoleObject.clearConsoleMessages();
+
 	} else if (message.action == 'init') {
 		// registerTabPage to add icon and description
 		studio.extension.registerTabPage('index.html', 'icon.png', 'Mobile Console: shows the output of the ionic/cordova environment.');
