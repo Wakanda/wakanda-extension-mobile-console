@@ -7,12 +7,14 @@ function getMobileConsole() {
         consoleLog: [],
         invokeCommand: function(command, options) {
             var message = {
-                cmd: command,
-                path: (options !== undefined) ? options.path || null : null,
-                onmessage: (options !== undefined) ? options.onmessage : null,
-                onerror: (options !== undefined) ? options.onerror : null,
-                onterminated: (options !== undefined) ? options.onterminated : null
+                cmd: command
             };
+            if (options !== undefined){
+                if (options.path) message.path = options.path;
+                if (options.onmessage) message.onmessage = options.onmessage;
+                if (options.onerror) message.onerror = options.onerror;
+                if (options.onterminated) message.onterminated = options.onterminated;
+            }
             studio.sendCommand('MobileAPI.invokeCommand.' + btoa(JSON.stringify(message)));
         },
         getMobileConsoleFromStorage: function() {
