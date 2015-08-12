@@ -1,3 +1,5 @@
+var utils = require("../../lib/utils");
+
 /* MOBILE CONSOLE OBJECT */
 function getMobileConsole() {
     var config = studio.mobile = {
@@ -15,7 +17,7 @@ function getMobileConsole() {
                 if (options.onerror) message.onerror = options.onerror;
                 if (options.onterminated) message.onterminated = options.onterminated;
             }
-            studio.sendCommand('MobileAPI.invokeCommand.' + btoa(JSON.stringify(message)));
+            utils.executeAsyncCmd(message);
         },
         getMobileConsoleFromStorage: function() {
             var console = [];
