@@ -1,5 +1,3 @@
-var utils = require("../../lib/utils");
-
 /* MOBILE CONSOLE OBJECT */
 function getMobileConsole() {
     var config = studio.mobile = {
@@ -7,18 +5,6 @@ function getMobileConsole() {
         toClear: false,
         console: [],
         consoleLog: [],
-        invokeCommand: function(command, options) {
-            var message = {
-                cmd: command
-            };
-            if (options !== undefined){
-                if (options.path) message.path = options.path;
-                if (options.onmessage) message.onmessage = options.onmessage;
-                if (options.onerror) message.onerror = options.onerror;
-                if (options.onterminated) message.onterminated = options.onterminated;
-            }
-            utils.executeAsyncCmd(message);
-        },
         getMobileConsoleFromStorage: function() {
             var console = [];
             if (studio.extension.storage.getItem('mobileConsole')) {
