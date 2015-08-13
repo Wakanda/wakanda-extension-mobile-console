@@ -10,11 +10,12 @@ exports.handleMessage = function handleMessage(message) {
 
 	} else if (message.action == 'append') {
 		if (message.params) {
-			var messageReceived = message.params;
-            if(typeof messageReceived.msg === 'object') {
-                messageReceived.msg = JSON.stringify(messageReceived.msg);
-            }
-			mobileConsoleObject.appendConsoleMessage(ansi2html(messageReceived.msg), messageReceived.type, messageReceived.category);
+			var messageReceived = message.params,
+				messageText = (typeof messageReceived === 'object') ? JSON.stringify(messageReceived.msg) : message.params,
+				messageType = messageReceived.type || null,
+				messageCategory = messageReceived.category;
+
+			mobileConsoleObject.appendConsoleMessage(ansi2html(messageText), messageType, messageCategory);
 		}
 	} else if (message.action == 'clear') {
 		mobileConsoleObject.clearConsoleMessages();
