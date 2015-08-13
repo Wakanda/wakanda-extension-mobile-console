@@ -11,7 +11,7 @@ exports.handleMessage = function handleMessage(message) {
 	} else if (message.action == 'append') {
 		if (message.params) {
 			var messageReceived = message.params,
-				messageText = (typeof messageReceived === 'object') ? messageReceived.msg : message.params,
+				messageText = (typeof messageReceived === 'object' && typeof messageReceived.msg != 'undefined') ? messageReceived.msg : message.params,
 				messageType = messageReceived.type || null,
 				messageCategory = messageReceived.category;
 
@@ -19,7 +19,7 @@ exports.handleMessage = function handleMessage(message) {
 				messageText = JSON.stringify(messageText);
 			}
 			
-			mobileConsoleObject.appendConsoleMessage(ansi2html(messageText), messageType, messageCategory);
+			mobileConsoleObject.appendConsoleMessage(ansi2html(String(messageText)), messageType, messageCategory);
 		}
 	} else if (message.action == 'clear') {
 		mobileConsoleObject.clearConsoleMessages();
