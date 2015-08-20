@@ -1,5 +1,4 @@
 html, body{
-    overflow: hidden;
     height: 100%;
 }
 body {
@@ -13,10 +12,10 @@ body {
 #console {
     color: #626262;
     background: #E3E5E6;
-    overflow: hidden;
     height: 100%;
     box-sizing: border-box;
     position: relative;
+    min-width: 768px;
 }
 
 #console-tabs {
@@ -50,7 +49,6 @@ body {
     top: 34px;
     left: 0;
     width: 100%;
-    min-width: 980px;
 }
 
 #console-body .messages-container {
