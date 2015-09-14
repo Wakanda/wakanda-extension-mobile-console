@@ -25,7 +25,10 @@
 			"title": "Append Message"
 		}, {
 			"name": "clear",
-			"title": "Clear Console"
+			"title": "Clear Console",
+			"trigger": [{
+				"event": "onSolutionBeforeClosing"
+			}]
 		}],
 		"lifetime": "application_lifetime"
 	}
