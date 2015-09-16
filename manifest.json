@@ -13,7 +13,10 @@
 		}],
 		"actions": [{
 			"name": "open",
-			"title": "Open Console"
+			"title": "Open Console",
+            "trigger": [{
+                "event": "onSolutionOpened"
+            }]
 		}, {
 			"name": "init",
 			"title": "Init Console",
