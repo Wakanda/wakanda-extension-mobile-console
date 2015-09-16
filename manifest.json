@@ -14,9 +14,9 @@
 		"actions": [{
 			"name": "open",
 			"title": "Open Console",
-            "trigger": [{
-                "event": "onSolutionOpened"
-            }]
+			"trigger": [{
+				"event": "onSolutionOpened"
+			}]
 		}, {
 			"name": "init",
 			"title": "Init Console",
@@ -28,10 +28,7 @@
 			"title": "Append Message"
 		}, {
 			"name": "clear",
-			"title": "Clear Console",
-			"trigger": [{
-				"event": "onSolutionBeforeClosing"
-			}]
+			"title": "Clear Console"
 		}],
 		"lifetime": "application_lifetime"
 	}
