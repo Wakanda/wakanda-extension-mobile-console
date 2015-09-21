@@ -6,7 +6,7 @@
 		"icon": "ionitron-avatar.png",
 		"senders": [{
 			"location": "studioToolbar",
-			"tips": "Description",
+			"tips": "Console",
 			"icon": "ionitron-avatar.png",
 			"title": "Console",
 			"actionName": "open"
