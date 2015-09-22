@@ -132,7 +132,7 @@ function clearFrontendConsole() {
 }
 
 function clearMobileConsole() {
-    studio.sendCommand('MobileConsole.clear');
+    studio.sendCommand('wakanda-extension-mobile-console.clear');
 }
 
 function toggleOptions(mode) {
