@@ -30,7 +30,7 @@ exports.handleMessage = function handleMessage(message) {
 		if (mobileConsoleObject.console.length < 1) {
 			// launch the first message
 			var extensionManifest = JSON.parse(File(studio.extension.getFolder().path + '/manifest.json'));
-			mobileConsoleObject.appendConsoleMessage(extensionManifest.extension.name + ' Console ' + extensionManifest.extension.version, 'DEBUG');
+			mobileConsoleObject.appendConsoleMessage(extensionManifest.extension.name + ' ' + extensionManifest.extension.version, 'DEBUG');
 		}
 	}
 }
