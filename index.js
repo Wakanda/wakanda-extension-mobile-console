@@ -11,15 +11,20 @@ exports.handleMessage = function handleMessage(message) {
 	} else if (message.action == 'append') {
 		if (message.params) {
 			var messageReceived = message.params,
-				messageText = (typeof messageReceived === 'object' && typeof messageReceived.msg != 'undefined') ? messageReceived.msg : message.params,
-				messageType = messageReceived.type || null,
-				messageCategory = messageReceived.category;
+			messageText = (typeof messageReceived === 'object' && typeof messageReceived.msg != 'undefined') ? messageReceived.msg : message.params,
+			messageType = messageReceived.type || null,
+			messageCategory = messageReceived.category;
 
-			if(typeof messageText === 'object') {
+			if (typeof messageText === 'object') {
 				messageText = JSON.stringify(messageText);
 			}
-			
-			mobileConsoleObject.appendConsoleMessage(ansi2html(String(messageText)), messageType, messageCategory);
+
+			// ignore usless messages {" ",".","ChildProcess.whenDone"}
+
+			if (messageText != " " && messageText != "." && messageText.match("ChildProcess.whenDone") != null) {
+
+				mobileConsoleObject.appendConsoleMessage(ansi2html(String(messageText)), messageType, messageCategory);
+			}
 		}
 	} else if (message.action == 'clear') {
 		mobileConsoleObject.clearConsoleMessages();
