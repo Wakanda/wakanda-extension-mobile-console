@@ -18,8 +18,13 @@ exports.handleMessage = function handleMessage(message) {
 			if(typeof messageText === 'object') {
 				messageText = JSON.stringify(messageText);
 			}
-			
-			mobileConsoleObject.appendConsoleMessage(ansi2html(String(messageText)), messageType, messageCategory);
+            
+            // ignore usless messages {" ",".","fail build message"}
+            
+			if( messageText != " " && messageText != "." && messageText.match("at com.android") != null ){
+            
+			     mobileConsoleObject.appendConsoleMessage(ansi2html(String(messageText)), messageType, messageCategory);
+            }
 		}
 	} else if (message.action == 'clear') {
 		mobileConsoleObject.clearConsoleMessages();
