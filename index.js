@@ -20,8 +20,8 @@ exports.handleMessage = function handleMessage(message) {
 			}
 
 			// ignore usless messages {" ",".","ChildProcess.whenDone"}
-
-			if (messageText != " " && messageText != "." && messageText.match("ChildProcess.whenDone") != null) {
+             
+			if (messageText != " " && messageText != "." && messageText.match("ChildProcess.whenDone") == null) {
 
 				mobileConsoleObject.appendConsoleMessage(ansi2html(String(messageText)), messageType, messageCategory);
 			}
