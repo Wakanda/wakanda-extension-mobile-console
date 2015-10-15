@@ -3,11 +3,11 @@
 		"name": "wakanda-extension-mobile-console",
 		"version": "1.0.0",
 		"description": "Wakanda Studio Mobile Console",
-		"icon": "ionitron-avatar.png",
+		"icon": "console-light.png",
 		"senders": [{
 			"location": "studioToolbar",
 			"tips": "Console",
-			"icon": "ionitron-avatar.png",
+			"icon": "console-light.png",
 			"title": "Console",
 			"actionName": "open"
 		}],

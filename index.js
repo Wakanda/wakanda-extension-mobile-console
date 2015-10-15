@@ -6,7 +6,7 @@ exports.handleMessage = function handleMessage(message) {
 	mobileConsoleObject.getMobileConsoleFromStorage();
 	if (message.action == 'open') {
 		// open the webview
-		studio.extension.openPageInTab('index.html', 'Mobile Console', false, 'bottom');
+		studio.extension.openPageInTab('index.html', 'Console', false, 'bottom');
 
 	} else if (message.action == 'append') {
 		if (message.params) {
@@ -31,7 +31,7 @@ exports.handleMessage = function handleMessage(message) {
 
 	} else if (message.action == 'init') {
 		// registerTabPage to add icon and description
-		studio.extension.registerTabPage('index.html', 'icon.png', 'Mobile Console: shows the output of the ionic/cordova environment.');
+		studio.extension.registerTabPage('index.html', 'icon-light.png', 'Console: shows the output of the wakanda and ionic/cordova environments.');
 		if (mobileConsoleObject.console.length < 1) {
 			// launch the first message
 			var extensionManifest = JSON.parse(File(studio.extension.getFolder().path + '/manifest.json'));
