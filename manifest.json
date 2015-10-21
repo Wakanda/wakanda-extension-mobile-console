@@ -15,7 +15,7 @@
 			"name": "open",
 			"title": "Open Console",
 			"trigger": [{
-				"event": "onSolutionOpened"
+				"event": "onSolutionCreated"
 			}]
 		}, {
 			"name": "init",
