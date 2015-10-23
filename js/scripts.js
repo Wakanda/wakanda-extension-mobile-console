@@ -46,7 +46,7 @@ function generateLogString(log) {
             logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type orange">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="orange">' + logMessage + '</span></div>';
             break;
         case 'ERROR':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type red">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="red">' + logMessage + '</span></div>';
+            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type red">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
             break;
         case 'LOG':
             logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
