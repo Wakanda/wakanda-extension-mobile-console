@@ -4,18 +4,11 @@
 		"version": "1.0.0",
 		"description": "Wakanda Studio Mobile Console",
 		"icon": "console-light.png",
-		"senders": [{
-			"location": "studioToolbar",
-			"tips": "Console",
-			"icon": "console-light.png",
-			"title": "Console",
-			"actionName": "open"
-		}],
 		"actions": [{
 			"name": "open",
 			"title": "Open Console",
 			"trigger": [{
-				"event": "onSolutionCreated"
+				"event": "onSolutionOpened"
 			}]
 		}, {
 			"name": "init",

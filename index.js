@@ -6,7 +6,7 @@ exports.handleMessage = function handleMessage(message) {
 	mobileConsoleObject.getMobileConsoleFromStorage();
 	if (message.action == 'open') {
 		// open the webview
-		studio.extension.openPageInTab('index.html', 'Console', true, 'bottom');
+		studio.extension.openPageInTab('index.html', 'Console', false, 'bottom');
 
 	} else if (message.action == 'append') {
 		if (message.params) {
