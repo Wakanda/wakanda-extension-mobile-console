@@ -180,3 +180,18 @@ span.error {
 #options-container a > span.icon {
     width: 16px;
 }
+
+a.tip {
+    font-family: arial, sans-serif;
+    display: inline-block;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    background: #C46065;
+    font-weight: normal;
+    padding: 0px 5px;
+    line-height: 10px;
+    box-sizing: border-box;
+    font-size: 13px;
+    height: 11px;
+}
