@@ -36,7 +36,7 @@ exports.handleMessage = function handleMessage(message) {
 			// launch the first message
 			var extensionManifest = JSON.parse(File(studio.extension.getFolder().path + '/manifest.json'));
 			mobileConsoleObject.appendConsoleMessage(extensionManifest.extension.name + ' ' + extensionManifest.extension.version, 'DEBUG');
-			mobileConsoleObject.appendConsoleMessage('If you need help click {%a href="#" click="(function(){ studio.sendCommand(\'wakanda-extension-trouble-shooting.getTroubleshootingPage\') })"%}here{%/a%} to open the troubleshooting!', 'DEBUG');
+			mobileConsoleObject.appendConsoleMessage('If you need help click {%a href="#" onclick="studio.sendCommand(\'wakanda-extension-trouble-shooting.getTroubleshootingPage\')"%}here{%/a%} to open the troubleshooting!', 'DEBUG');
 			
 		}
 	}
