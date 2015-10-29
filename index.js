@@ -6,7 +6,7 @@ exports.handleMessage = function handleMessage(message) {
 	mobileConsoleObject.getMobileConsoleFromStorage();
 	if (message.action == 'open') {
 		// open the webview
-		studio.extension.openPageInTab('index.html', 'Console', true, 'bottom');
+		studio.extension.openPageInTab('index.html', 'Console', false, 'bottom');
 
 	} else if (message.action == 'append') {
 		if (message.params) {
@@ -36,6 +36,8 @@ exports.handleMessage = function handleMessage(message) {
 			// launch the first message
 			var extensionManifest = JSON.parse(File(studio.extension.getFolder().path + '/manifest.json'));
 			mobileConsoleObject.appendConsoleMessage(extensionManifest.extension.name + ' ' + extensionManifest.extension.version, 'DEBUG');
+			mobileConsoleObject.appendConsoleMessage('If you need help click {%a href="#" click="(function(){ studio.sendCommand(\'wakanda-extension-trouble-shooting.getTroubleshootingPage\') })"%}here{%/a%} to open the troubleshooting!', 'DEBUG');
+			
 		}
 	}
 }
