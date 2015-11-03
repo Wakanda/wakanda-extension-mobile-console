@@ -31,7 +31,7 @@ exports.handleMessage = function handleMessage(message) {
 
 	} else if (message.action == 'init') {
 		// registerTabPage to add icon and description
-		studio.extension.registerTabPage('index.html', 'icon-light.png', 'Console: shows the output of the wakanda and ionic/cordova environments.');
+		studio.extension.registerTabPage('index.html', 'icon-light.png', 'Displays messages, logs, and output for environments and builds.');
 		if (mobileConsoleObject.console.length < 1) {
 			// launch the first message
 			var extensionManifest = JSON.parse(File(studio.extension.getFolder().path + '/manifest.json'));
