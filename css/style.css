@@ -38,7 +38,7 @@ body {
 #console-body {
     overflow: hidden;
     background-color: white;
-    font-family: 'Open Sans', monospace;
+    font-family: monospace;
     font-size: 12px;
     line-height: 16px;
     overflow: hidden;

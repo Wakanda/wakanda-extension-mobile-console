@@ -1,4 +1,5 @@
 // WEBVIEW ENVIRONMENT
+var CONSOLE_MESSAGES_LIMIT = 200;
 getMobileConsole();
 studio.mobile.getMobileConsoleFromStorage();
 studio.mobile.consoleIndex = studio.mobile.console.length;
@@ -37,22 +38,22 @@ function generateLogString(log) {
     };
     switch (log.type) {
         case 'OUTPUT':
-            logHTML = '<div class="message"><div><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span></div>' + logMessage + '</div>';
+            logHTML = '<div><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span></div>' + logMessage;
             break;
         case 'COMMAND':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>$ ' + logMessage + '</div>';
+            logHTML = '<span class="category">[' + logCategory + ']</span><span class="type debug">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>$ ' + logMessage;
             break;
         case 'WARNING':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type orange">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="orange">' + logMessage + '</span></div>';
+            logHTML = '<span class="category">[' + logCategory + ']</span><span class="type orange">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span><span class="orange">' + logMessage + '</span>';
             break;
         case 'ERROR':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type red">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
+            logHTML = '<span class="category">[' + logCategory + ']</span><span class="type red">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage;
             break;
         case 'LOG':
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
+            logHTML = '<span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage;
             break;
         default:
-            logHTML = '<div class="message"><span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage + '</div>';
+            logHTML = '<span class="category">[' + logCategory + ']</span><span class="type">[' + log.type + ']</span> <span class="time">' + date.substring(0, 8) + '</span>' + logMessage;
             break;
     }
     return logHTML;
@@ -66,16 +67,63 @@ function checkLogConsole() {
     }
 }
 
+function renderConsoleMessages() {
+    if (studio.mobile.console.length < studio.mobile.consoleIndex) {
+        return false;
+    }
+
+    var fragments = {};
+
+    fragments['console-body-all'] = document.createDocumentFragment();
+
+    studio.mobile.console.forEach(function(log, i) {
+        if (i >= studio.mobile.consoleIndex) {
+            // create message div
+            var div = document.createElement("div");
+            div.innerHTML = generateLogString(log);
+            div.className = 'message';
+
+            // append log to "all" fragment
+            fragments['console-body-all'].appendChild(div);
+
+            // append log to the specific log category fragment
+            var category = 'console-body-' + String(log.category);
+            if (!category) {
+                return;
+            }
+            if (!fragments[category]) {
+                fragments[category] = document.createDocumentFragment();
+            }
+            var categoryDiv = div.cloneNode(true);
+            fragments[category].appendChild(categoryDiv);
+            studio.mobile.consoleIndex++;
+        }
+    });
+    Object.keys(fragments).forEach(function(fragmentId) {
+        document.getElementById(fragmentId).appendChild(fragments[fragmentId]);
+        // clear front-end
+        var messages = document.getElementById(fragmentId).getElementsByClassName('message');
+        for (var i = 0; i < messages.length; i++) {
+            if (messages.length - i > CONSOLE_MESSAGES_LIMIT) {
+                messages[i].remove();
+                i--;
+            }
+        }
+    });
+
+    // clear console memory if over max
+    if (studio.mobile.console.length > CONSOLE_MESSAGES_LIMIT) {
+        studio.mobile.clearConsoleMessages();
+        studio.mobile.consoleIndex = 0;
+    }
+
+}
+
 function checkMobileConsole() {
     studio.mobile.getMobileConsoleFromStorage();
-    if (studio.mobile.console.length > 0) {
-        for (var i = studio.mobile.consoleIndex; i < studio.mobile.console.length; i++) {
-            var string = generateLogString(studio.mobile.console[i]);
-            document.getElementById('console-body-all').innerHTML += string;
-            document.getElementById('console-body-' + String(studio.mobile.console[i].category)).innerHTML += string;
-            studio.mobile.consoleIndex++;
-            setScroll();
-        }
+    if (studio.mobile.console.length > studio.mobile.consoleIndex) {
+        renderConsoleMessages();
+        setScroll();
     } else if (studio.mobile.console.length == 0 && studio.mobile.consoleIndex > 0) {
         studio.mobile.consoleIndex = 0;
         clearFrontendConsole();
@@ -93,12 +141,7 @@ function restoreMobileConsole() {
             }
         }
         studio.mobile.consoleIndex = 0;
-        studio.mobile.console.forEach(function(log) {
-            var string = generateLogString(studio.mobile.console[studio.mobile.consoleIndex]);
-            document.getElementById('console-body-all').innerHTML += string;
-            document.getElementById('console-body-' + String(studio.mobile.console[studio.mobile.consoleIndex].category)).innerHTML += string;
-            studio.mobile.consoleIndex++;
-        });
+        renderConsoleMessages();
     }
 }
 
